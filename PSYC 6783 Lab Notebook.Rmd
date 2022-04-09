@@ -22,7 +22,7 @@ library(textreadr)
 # clear the workspace (useful if we're not knitting)
 rm(list=ls())
 #load("/Users/huda/Documents/UConn/15- Spring 2022/PSYC 6783/6783 R/6783.RData")
-setwd("~/Documents/UConn/15- Spring 2022/PSYC 6783/Analysis Tools")
+#setwd("~/Documents/UConn/15- Spring 2022/PSYC 6783/Analysis Tools")
 ```
 
 ```{r requirements, include=FALSE}
@@ -47,10 +47,10 @@ setwd("~/Documents/UConn/15- Spring 2022/PSYC 6783/Analysis Tools")
       - think about small edits in transcripts that would make it easier to identify pronouns, negations...etc that would normally be attached to a word rather than being a separate word (ما، ش، ف), also can an R program be written to make these changes?
       - ~~edit transcripts according to previous point~~
       - ~~look into building dictionary through iterations~~
-      - look into building Arabic dictionary, potentially using Dedoose code excerpts?
+      - ~~look into building Arabic dictionary, potentially using Dedoose code excerpts?~~
       - work on dictionary specific to religion/morality to come up with analysis relevant to completed Dedoose coding
-      - identify types of analyses that would make sense for Arabic text, considering the lack of a dictionary
-      - **remove my questions from transcript text**
+      - ~~identify types of analyses that would make sense for Arabic text, considering the lack of a dictionary~~
+      - **remove my questions from transcript text** *ongoing*
   + ~~If Arabic text will not work~~
       - ~~translate morality portions of all interviews~~
       - ~~review codes of interest that may be used for analysis~~
@@ -59,10 +59,37 @@ setwd("~/Documents/UConn/15- Spring 2022/PSYC 6783/Analysis Tools")
 
 **_______________________________________________________**
 
+# Date Friday 4/8/22
+
+*started using Git here!*
+
+Current Tasks:
+
+* Removing questions for transcript text, doing this manually - trancripts not consistent enough for attempting automation
+* Testing with regular expressions or stringr to identify everyday phrases and convert them into single word (by placing dashes in the middle)
+
+```{r phrase converter}
+#testing withe str_replace_all
+
+test_text <-  " أيوة أنا إن شاء الله جاية و بعدين هروح إن شاء الله"
+new_text <- test_text
+isa <- "إن شاء الله"
+isa_dash <- "إن-شاء-الله"
+str_replace_all(new_text,isa,isa_dash)
+
+#success!
+```
+
+next: need to convert all double spaces to single spaces
+
+**_______________________________________________________**
+
+# Date Thursday 3/31/22
+
 Hayes: relate whether parent separates to mention of religion and top frequent words?
 go with the easier option for the purposes of this class.
 
-Kaya; this could be just a methods thing to see if it's feasible, also thinks the separator/combiner analysis is interesting and enough for this class. 
+Kaya: this could be just a methods thing to see if it's feasible, also thinks the separator/combiner analysis is interesting and enough for this class. 
 
 maybe focus on methodology of identifying religious salience in Arabic text;
 
@@ -181,7 +208,7 @@ ggplot(char_sentiment, aes(x = names, y =posratio)) +
   
 #### Testing R code to covert docx files to txt files
  
-```{r import docx, warning=FALSE}
+```{r import docx, warning=FALSE, eval=FALSE}
  library(textreadr)
 #setwd("~/Documents/UConn/15- Spring 2022/PSYC 6783/Analysis Tools")
 ## .docx
