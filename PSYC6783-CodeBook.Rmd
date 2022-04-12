@@ -58,13 +58,24 @@ doctext2<- doctext
 docflat <- doctext %>% str_flatten()
 isa <- "إن شاء الله"
 isa_dash <- "إن-شاء-الله"
-hashes <- "#######################"
-str_replace_all(docflat,hashes,"#")
-str_replace_all(doctext2,isa,isa_dash) #doesn't seem to work
-str_detect(docflat,isa_dash)
+#hashes <- "#######################"
+#str_replace_all(docflat,hashes,"#")
+doctext2dash <- str_replace_all(doctext2,isa,isa_dash) 
+str_detect(doctext2dash,isa_dash)
+write.table(doctext2dash, file="UB07_isaPhrased.txt", row.names = FALSE, col.names=FALSE, fileEncoding = "UTF-8", quote=FALSE)
+#### This works!
+
+#checking with flattened string
 str_detect(docflat,isa)
-str_replace_all(docflat,isa,isa_dash)
-write.table(doctext2, file="UB07_isaPhrased.txt", row.names = FALSE, col.names=FALSE, fileEncoding = "UTF-8", quote=FALSE)
+docflatdash <- str_replace_all(docflat,isa,isa_dash)
+str_detect(docflatdash,isa_dash) #this works! just need to make sure that str replace is assigned to new variable
+
+
+#testing with single line
+exampleText <- "سواء المدرسة بمصاريفها.. النادي... بس فأعتقد أن أنا يعني أب كويس إن شاء الله يعني"
+str_detect(exampleText,isa)
+str_replace_all(exampleText,isa,isa_dash)
+str_detect(exampleText,isa_dash)
 #success!
 ```
 
