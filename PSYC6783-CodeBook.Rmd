@@ -1,0 +1,138 @@
+---
+title: "PSYC 6783 Code Book"
+author: "Huda Akef"
+date: "4/12/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(stringr)
+library(magrittr)
+library(tidyverse)
+library(knitr)
+library(grid)
+library(gridExtra)
+library(vader)
+library(textreadr)
+```
+
+
+```{r function-check-for-packages, include=FALSE}
+
+# make sure we can load packages 
+# (thanks to https://gist.github.com/smithdanielle/9913897)
+load_or_install_packages <- function(pkg){
+  new.pkg <- pkg[!(pkg %in% installed.packages()[, "Package"])]
+  if (length(new.pkg)) 
+    install.packages(new.pkg, 
+                     dependencies = TRUE,
+                     repos="http://cloud.r-project.org/")
+  sapply(pkg, require, character.only = TRUE)
+}
+
+```
+
+
+```{r load-packages, message=FALSE, results="hide"}
+# specify which packages we'll need
+required_packages = c("usethis",
+                      "gitcreds",
+                      "devtools"
+                      )
+
+# install them (if necessary) and load them
+load_or_install_packages(required_packages)
+devtools::install_github("hadley/emo")
+```
+
+```{r phrase converter per document}
+
+doctext <- readLines("UB07_noQ.txt", encoding="UTF-8")
+doctext2<- doctext
+docflat <- doctext %>% str_flatten()
+isa <- "إن شاء الله"
+isa_dash <- "إن-شاء-الله"
+hashes <- "#######################"
+str_replace_all(docflat,hashes,"#")
+str_replace_all(doctext2,isa,isa_dash) #doesn't seem to work
+str_detect(docflat,isa_dash)
+str_detect(docflat,isa)
+str_replace_all(docflat,isa,isa_dash)
+write.table(doctext2, file="UB07_isaPhrased.txt", row.names = FALSE, col.names=FALSE, fileEncoding = "UTF-8", quote=FALSE)
+#success!
+```
+
+
+```{r phrase converter}
+#testing withe str_replace_all
+
+test_text <-  " أيوة أنا إن شاء الله جاية و بعدين هروح إن شاء الله"
+new_text <- test_text
+isa <- "إن شاء الله"
+isa_dash <- "إن-شاء-الله"
+str_replace_all(new_text,isa,isa_dash)
+
+#success!
+```
+
+
+```{r import docx, warning=FALSE, eval=FALSE}
+ library(textreadr)
+#setwd("~/Documents/UConn/15- Spring 2022/PSYC 6783/Analysis Tools")
+## .docx
+#docx_t <- system.file("test.docx",
+#package = "textreadr")  # not necessary ad did not work
+test <- read_document("UB03.docx") # worked! seems to importan as character vector separated by empty lines
+test2 <- read_document("UB03.docx", combine=TRUE) #yay! worked and put it all in one string
+#test2
+write.table(test2, file="test2.txt", row.names = FALSE, col.names=FALSE, fileEncoding = "UTF-8", quote=FALSE)
+write.table(test, file="test.txt", row.names = FALSE, col.names=FALSE, fileEncoding = "UTF-8", quote=FALSE)
+#while combining into a single string with combine=TRUE may be better for some things, it will not include separate lines when writing into a text file, with the noncombined dataframe was exported into a text file maintaining line structure but no empty lines
+test3 <- read_document("UB03.docx",remove.empty=FALSE,skip=0) #reads empty lines as empty rows
+write.table(test3, file="test3.txt", row.names = FALSE, col.names=FALSE, fileEncoding = "UTF-8", quote=FALSE) #this works and includes empty lines
+#other option to put in something instead of empty lines
+test4 <- test3
+test4[test4 == ""] <- "##########" 
+write.table(test4, file="test4.txt", row.names = FALSE, col.names=FALSE, fileEncoding = "UTF-8", quote=FALSE) #perfect!
+
+#now need loop to do this will all files
+#the following reads all file names in a folder and changes extension. 
+
+docx_files <- list.files(path = "~/Documents/UConn/15- Spring 2022/PSYC 6783/Analysis Tools/Final Complete Transcripts",pattern="*.docx")
+
+noext_files <- substr(docx_files,1,nchar(docx_files)-5)
+
+txt_files <- paste(noext_files, ".txt",sep="")
+
+#loop function to read all files and write them as txt works!!!
+
+#setwd("~/Documents/UConn/15- Spring 2022/PSYC 6783/Analysis Tools/Final Complete Transcripts")
+for(i in 1:length(docx_files))
+{
+  tempdata <- read_document(docx_files[i],remove.empty=FALSE,skip=0) 
+  tempdata[tempdata == ""] <- "#######################" 
+  write.table(tempdata, file=txt_files[i], row.names = FALSE, col.names=FALSE, fileEncoding = "UTF-8", quote=FALSE) 
+}
+  
+```
+
+
+```{r ArabicTest2, results = "hide", warning=FALSE}
+arabicTest <- readLines("UB_RTest.txt",encoding='UTF-8')
+arabicTest # aaaand this worked!! yippee!!
+arabicTest2 <- readLines("UB06.txt",encoding='UTF-8') #bigger text file include some English words within Arabic text
+arabicTest2 # this also worked well, loks like delimiter is new line
+# now trying some string operations
+#arabicTest2 %>% str_count(pattern="حاجة")
+#does not work, weird output 
+#head(arabicTest2)
+UB06flat <- arabicTest2 %>% str_flatten() #flattening is the key!
+UB06flat
+UB06flat %>% str_count(pattern = "حاجة") #works and results verified, there are indeed 33 instances of حاجةin the file
+```
