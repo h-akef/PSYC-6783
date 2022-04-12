@@ -1,0 +1,79 @@
+﻿Token,Translation if needed,Frequency,Docs_With_Token,ObservationPct,IDF,type,notes
+احنا,we,538,16,84.21053,0.17185,content,
+مدرسة,school,389,17,89.47368,0.11123,content,
+دين,religion,287,19,100,0,content,
+البيت,home,158,9,47.36842,0.74721,content,
+ماما,mom,157,11,57.89474,0.54654,content,
+صلاة,prayer,149,15,78.94737,0.23639,content,
+الله,Allah,114,11,57.89474,0.54654,content,
+بابا,dad,110,8,42.10526,0.865,content,
+ربنا,Our Lord,100,14,73.68421,0.30538,content,
+غلط,wrong,99,12,63.15789,0.45953,content,
+الولاد,children,90,11,57.89474,0.54654,content,conversion
+الحضانة,nursery/preschool,83,7,36.84211,0.99853,content,
+التربية,upbringing/raising kids,82,13,68.42105,0.37949,content,
+مشكلة,problem,80,8,42.10526,0.865,content,
+الأخلاق,morals,74,17,89.47368,0.11123,content,
+parent,,62,14,73.68421,0.30538,content,
+الشغل,work,60,9,47.36842,0.74721,content,
+المفروض,how it's supposed to be/ how it should be,56,10,52.63158,0.64185,content,
+family,,53,15,78.94737,0.23639,content,
+والله,swear to God,50,9,47.36842,0.74721,content,
+الطفل,child,45,7,36.84211,0.99853,content,conversion
+الصح,the right thing (to do)/what's right,45,10,52.63158,0.64185,content,
+control,,42,6,31.57895,1.15268,content,
+قصة,story,39,5,26.31579,1.335,content,
+community,,37,10,52.63158,0.64185,content,
+strict,,35,9,47.36842,0.74721,content,
+التمرين,practice (sports),33,4,21.05263,1.55814,content,
+طفل,child,32,10,52.63158,0.64185,content,conversion
+work,,32,5,26.31579,1.335,content,
+god,,32,8,42.10526,0.865,content,conversion
+بابايا,my dad,32,7,36.84211,0.99853,content,conversion
+مشاكل,problems,31,8,42.10526,0.865,content,conversion
+النادي,the club (sports),31,7,36.84211,0.99853,content,
+باباه,his dad,31,4,21.05263,1.55814,content,conversion
+فلوس,money,30,10,52.63158,0.64185,content,
+child,,30,11,57.89474,0.54654,content,conversion
+challenge,,28,7,36.84211,0.99853,content,
+الاكل,food,28,5,26.31579,1.335,content,
+model,,27,13,68.42105,0.37949,content,
+learn,,27,9,47.36842,0.74721,content,
+grow,,27,8,42.10526,0.865,content,
+love,,26,6,31.57895,1.15268,content,
+role,,26,8,42.10526,0.865,content,
+اخواتي,my siblings,26,5,26.31579,1.335,content,
+الاطفال,children,25,7,36.84211,0.99853,content,conversion
+basic,,25,9,47.36842,0.74721,content,
+دعاء,supplication,25,8,42.10526,0.865,content,
+daughter,,25,6,31.57895,1.15268,content,
+wrong,,25,5,26.31579,1.335,content,
+مامتي,my mom,25,6,31.57895,1.15268,content,conversion
+مصر,Egypt,24,8,42.10526,0.865,content,
+المشكلة,the problem,24,7,36.84211,0.99853,content,conversion
+raise,,24,6,31.57895,1.15268,content,
+wife,,24,6,31.57895,1.15268,content,
+mom,,24,8,42.10526,0.865,content,
+قرآن,Quran,23,7,36.84211,0.99853,content,
+young,,22,8,42.10526,0.865,content,
+صحاب,friends,22,5,26.31579,1.335,content,
+social,,21,8,42.10526,0.865,content,
+لعب,play,21,6,31.57895,1.15268,content,
+فلبيت,at home,21,2,10.52632,2.25129,content,conversion
+صعبة,difficult,21,7,36.84211,0.99853,content,conversion
+character,,21,4,21.05263,1.55814,content,
+الولد,the boy,21,7,36.84211,0.99853,content,conversion
+المجتمع,society,21,5,26.31579,1.335,content,
+culture,,21,4,21.05263,1.55814,content,
+ولد,boy,20,7,36.84211,0.99853,content,conversion
+الاولاد,children,20,6,31.57895,1.15268,content,conversion
+العائلة,family,20,5,26.31579,1.335,content,conversion
+لعبة,toy,20,5,26.31579,1.335,content,conversion
+education,,20,6,31.57895,1.15268,content,conversion
+بنت,girl,20,8,42.10526,0.865,content,conversion
+lead,,20,8,42.10526,0.865,content,conversion
+teacher,,20,7,36.84211,0.99853,content,conversion
+شخصية,personality,20,7,36.84211,0.99853,content,
+اقرأ,read,20,5,26.31579,1.335,content,conversion
+انشاء,if God wills,19,5,26.31579,1.335,content,conversion
+الاخلاق,morals,7,3,15.78947,1.84583,content,conversion
