@@ -72,6 +72,7 @@ str_detect(exampleText,isa)
 str_replace_all(exampleText,isa,isa_dash)
 str_detect(exampleText,isa_dash)
 #success!
+#Hi!! this is a test
 ```
 
 
