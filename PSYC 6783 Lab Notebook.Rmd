@@ -62,7 +62,7 @@ rm(list=ls())
 
 # Date Friday 4/15/22
 
-* I tested the phrase converter function to loop on a set of documents for a single phrase (inshaaAllah) and it works! See Codebook function "convert phrases in multiple files". This codebook file is also now available on the GitHub repo.
+* I tested the phrase converter function to loop on a set of documents for a single phrase (inshaaAllah) and it works! The function also removes extra spaces (replaces double spaces with single spaces) See Codebook function "convert phrases in multiple files". This codebook file is also now available on the GitHub repo.
 * Next I need to add additional phrases to convert in the same function
 * Although I can write Arabic in RStudio, it's often wonky in relation to the cursor and where exactly it is. Also realized that writing Arabic text with quotation marks in a text file then copying it here doesn't identify the quotation marks as such for some reason. Arabic with quotations must be typed directly into RStudio. 
 
