@@ -70,6 +70,7 @@ rm(list=ls())
 
 * I updated the .gitignore file so that it ignores certain file extensions (.txt,.csv,.pdf...). This is mainly so that transcript files are not tracked for security reasons. I'm not sure what will happen when I create a repo on GitHub from this project. We'll see!
 * Success! I ran use_github(), and the files with extensions in the .gitignore were not imported into the repo on GitHub. Now I don't need to worry about transcript files being publicly available online! (at least as far as I understand)
+* The html file was still included though... I'm not sure why. 
 * Here's a link to the repository: https://github.com/h-akef/PSYC-6783 
 
 
