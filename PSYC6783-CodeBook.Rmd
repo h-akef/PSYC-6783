@@ -7,14 +7,7 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-library(stringr)
-library(magrittr)
-library(tidyverse)
-library(knitr)
-library(grid)
-library(gridExtra)
-library(vader)
-library(textreadr)
+
 ```
 
 
@@ -38,7 +31,14 @@ load_or_install_packages <- function(pkg){
 # specify which packages we'll need
 required_packages = c("usethis",
                       "gitcreds",
-                      "devtools"
+                      "devtools",
+                      "stringr",
+                      "magrittr",
+                      "tidyverse",
+                      "knitr",
+                      "grid",
+                      "gridExtra",
+                      "textreadr"
                       )
 
 # install them (if necessary) and load them
