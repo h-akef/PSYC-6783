@@ -38,13 +38,39 @@ required_packages = c("usethis",
                       "knitr",
                       "grid",
                       "gridExtra",
-                      "textreadr"
+                      "textreadr",
+                      "gitignore"
                       )
 
 # install them (if necessary) and load them
 load_or_install_packages(required_packages)
 devtools::install_github("hadley/emo")
 ```
+
+Now, we convert that single phrase "inshaaAllah" in a group of documents in a folder using a loop. 
+**Note: have to type in Arabic text with parentheses here directly, copying from other text file doesn't seem to format parentheses correctly!**
+
+```{r convert phrases in multiple files}
+fileNames <- list.files(path ="./transcripts",pattern="*noQ.txt") #getting file names for transcript files with questions removed
+dashedFiles <- paste("isadash.",fileNames, sep="")
+
+setwd("./transcripts")
+
+for(i in 1:length(fileNames))
+{
+  tempdata <- read_lines(fileNames[i],skip=0) 
+  tempdata[tempdata == "  "] <- " " #removing double spaces
+  isa <- "إن شاء الله"
+  isa_dash <- "إن-شاء-الله"
+  tempdata.isadash <- str_replace_all(tempdata,isa,isa_dash) 
+
+  write.table(tempdata.isadash, file=dashedFiles[i], row.names = FALSE, col.names=FALSE, fileEncoding = "UTF-8", quote=FALSE) 
+}
+  
+
+```
+
+This is the code to convert the inshaaAllah phrase in an entire document --> success!
 
 ```{r phrase converter per document}
 
