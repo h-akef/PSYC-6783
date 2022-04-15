@@ -43,19 +43,24 @@ rm(list=ls())
 * test R and LIWC with Arabic text
   + If Arabic text will work
       - test whether files with both Arabic and English text will work --> *this works in R, also works in LIWC*
-      - need to figure out what delimiters to use, probably after deciding on analytical approach
-      - think about small edits in transcripts that would make it easier to identify pronouns, negations...etc that would normally be attached to a word rather than being a separate word (ما، ش، ف), also can an R program be written to make these changes?
+      - ~~need to figure out what delimiters to use, probably after deciding on analytical approach~~
+      - ~~think about small edits in transcripts that would make it easier to identify pronouns, negations...etc that would normally be attached to a word rather than being a separate word (ما، ش، ف), also can an R program be written to make these changes?~~
       - ~~edit transcripts according to previous point~~
       - ~~look into building dictionary through iterations~~
       - ~~look into building Arabic dictionary, potentially using Dedoose code excerpts?~~
       - work on dictionary specific to religion/morality to come up with analysis relevant to completed Dedoose coding
       - ~~identify types of analyses that would make sense for Arabic text, considering the lack of a dictionary~~
       - **remove my questions from transcript text** *ongoing*
+      - **write code for identifying and "dashing" additional religious phrases**
   + ~~If Arabic text will not work~~
       - ~~translate morality portions of all interviews~~
       - ~~review codes of interest that may be used for analysis~~
 * ~~read more about language analysis conceptually rather than technically, create table to compare methods~~
 * identifying religion related words, review possible categories from 2/25/22
+
+**_______________________________________________________**
+
+
 
 **_______________________________________________________**
 
