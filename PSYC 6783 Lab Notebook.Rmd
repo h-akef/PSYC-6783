@@ -65,8 +65,10 @@ rm(list=ls())
 * I tested the phrase converter function to loop on a set of documents for a single phrase (inshaaAllah) and it works! The function also removes extra spaces (replaces double spaces with single spaces) See Codebook function "convert phrases in multiple files". This codebook file is also now available on the GitHub repo.
 * Next I need to add additional phrases to convert in the same function
 * Although I can write Arabic in RStudio, it's often wonky in relation to the cursor and where exactly it is. Also realized that writing Arabic text with quotation marks in a text file then copying it here doesn't identify the quotation marks as such for some reason. Arabic with quotations must be typed directly into RStudio. 
+* After running the phrase converter function on a few transcript files, I also tested MEH again with the new files to make sure the dashed phrases are identified as a single word -- success! 
+* Next, I need to check if a word is in the conversion list, and it's within the dashed phrase -- will that also be converted? or does it only convert exact matches of the word? I don't think it will make a difference in this particular instance, but I'm wondering. 
 
-###GitHub: Creating repo from current project
+### GitHub: Creating repo from current project
 
 * I updated the .gitignore file so that it ignores certain file extensions (.txt,.csv,.pdf...). This is mainly so that transcript files are not tracked for security reasons. I'm not sure what will happen when I create a repo on GitHub from this project. We'll see!
 * Success! I ran use_github(), and the files with extensions in the .gitignore were not imported into the repo on GitHub. Now I don't need to worry about transcript files being publicly available online! (at least as far as I understand)
@@ -495,9 +497,9 @@ Played around with some Arabic text:
 * next step, figure out how to create data frame with all transcripts, each file being a row of data with different identifying columnw (file name, gender, length...?)
 
 ```{r ArabicTest2, results = "hide", warning=FALSE}
-arabicTest <- readLines("UB_RTest.txt",encoding='UTF-8')
+arabicTest <- read_lines("UB_RTest.txt")
 arabicTest # aaaand this worked!! yippee!!
-arabicTest2 <- readLines("UB06.txt",encoding='UTF-8') #bigger text file include some English words within Arabic text
+arabicTest2 <- read_lines("UB06.txt") #bigger text file include some English words within Arabic text
 arabicTest2 # this also worked well, loks like delimiter is new line
 # now trying some string operations
 #arabicTest2 %>% str_count(pattern="حاجة")
