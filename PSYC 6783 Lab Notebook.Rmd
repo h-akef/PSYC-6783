@@ -60,6 +60,13 @@ rm(list=ls())
 
 **_______________________________________________________**
 
+# Date Tuesday 4/19/22
+
+* need to write code to make inshaaAllah is properly written, and the first two words aren't combine, also variations of the first word.
+
+
+**_______________________________________________________**
+
 # Date Friday 4/15/22
 
 * I tested the phrase converter function to loop on a set of documents for a single phrase (inshaaAllah) and it works! The function also removes extra spaces (replaces double spaces with single spaces) See Codebook function "convert phrases in multiple files". This codebook file is also now available on the GitHub repo.
