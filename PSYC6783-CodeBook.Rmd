@@ -50,6 +50,34 @@ devtools::install_github("hadley/emo")
 Now, we convert that single phrase "inshaaAllah" in a group of documents in a folder using a loop. 
 **Note: have to type in Arabic text with parentheses here directly, copying from other text file doesn't seem to format parentheses correctly!**
 
+```{r isa adjustments}
+
+doctext <- readLines("UB06.txt", encoding="UTF-8")
+doctext2<- doctext
+doctextflat <- doctext %>% str_flatten()
+insha <-"إنشاء"
+insha2 <- "انشاء"
+insha_correct <- "إن شاء"
+
+testtext <- readLines("test.txt", encoding="UTF-8")
+
+str_detect(testtext,insha_correct)
+str_detect(testtext,insha)
+str_detect(testtext,insha2)
+
+testcorr <- str_replace_all(testtext,insha,insha_correct)
+testcorr <- str_replace_all(testcorr,insha2,insha_correct) 
+
+str_detect(testcorr,insha_correct)
+str_detect(testcorr,insha)
+str_detect(testcorr,insha2)
+
+write.table(doctext2dash, file="UB07_isaPhrased.txt", row.names = FALSE, col.names=FALSE, fileEncoding = "UTF-8", quote=FALSE)
+
+```
+
+
+
 ```{r convert phrases in multiple files}
 fileNames <- list.files(path ="./transcripts",pattern="*noQ.txt") #getting file names for transcript files with questions removed
 dashedFiles <- paste("isadash.",fileNames, sep="")

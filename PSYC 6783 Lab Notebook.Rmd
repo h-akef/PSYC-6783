@@ -62,6 +62,7 @@ rm(list=ls())
 
 # Date Friday 4/22/22
 
+* Wrote and tested code to convert different variations of inshaaAllah, then convert them into dashed phrase. Other phrases don't have common variations. Now adding all to loop.
 * Final Analysis:
   + data set: 19 interviews with questions removed
   + run R code to replace 4 common phrases with the dashed phrases: inshaaAllah, alhamdulillah, subhanAllah, mashaaAllah.
