@@ -60,9 +60,26 @@ rm(list=ls())
 
 **_______________________________________________________**
 
+# Date Friday 4/22/22
+
+* Final Analysis:
+  + data set: 19 interviews with questions removed
+  + run R code to replace 4 common phrases with the dashed phrases: inshaaAllah, alhamdulillah, subhanAllah, mashaaAllah.
+  + run MEH with edited transcript files
+  + create data frame with each row being an interview with the following columns: 
+    - interview ID, parent gender, child gender(s) 
+    - qualitative codes: religionXmorality separation, approaches to moral socialization, how religion is employed with moral socialization, religious socialization 
+    - MEH word frequency for: words referring to religion, words referring to God, dashed religious phrases (as mentioned above)
+  + plot qualitative codes (binary variables) with MEH word frequencies
+  + potential statistical tests to run: t-test comparing mean word frequencies based on religionXmorality separation, regression with MEH word frequencies as outcome and religionXmorality separation and gender as predictors (all while acknowledging small sample size)
+
+
+
+**_______________________________________________________**
+
 # Date Tuesday 4/19/22
 
-* need to write code to make inshaaAllah is properly written, and the first two words aren't combine, also variations of the first word.
+* need to write code to make inshaaAllah is properly written, and the first two words aren't combined, also variations of the first word.
 
 
 **_______________________________________________________**
