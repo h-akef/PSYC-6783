@@ -80,21 +80,75 @@ write.table(doctext2dash, file="UB07_isaPhrased.txt", row.names = FALSE, col.nam
 
 ```{r convert phrases in multiple files}
 fileNames <- list.files(path ="./transcripts",pattern="*noQ.txt") #getting file names for transcript files with questions removed
-dashedFiles <- paste("isadash.",fileNames, sep="")
+dashedFiles <- paste("dash.",fileNames, sep="")
 
+# create empty data frame for storing data and results of detecting unwanted phrases
+
+detection_initial <- data.frame(file=character(),checkisa1=logical(),checkisa2=logical(), checkisa=logical(), checkahl=logical(), checksbh=logical(),checkmsa=logical(),stringsAsFactors = FALSE)
+
+detection <- data.frame(file=character(),data=character(),checkisa1=logical(),checkisa2=logical(), checkisa=logical(), checkahl=logical(), checksbh=logical(),checkmsa=logical(),stringsAsFactors = FALSE)
+
+  insha <-"إنشاء"
+  insha2 <- "انشاء"
+  insha_correct <- "إن شاء"
+  
+  isa <- "إن شاء الله"
+  isa_dash <- "إن-شاء-الله"
+  
+  ahl <- "الحمد لله"
+  ahl_dash <- "الحمد-لله"
+ 
+  sbh <- "سبحان الله"
+  sbh_dash <- "سبحان-الله"
+  
+  msa <- "ما شاء الله"
+  msa_dash <- "ما-شاء-الله"
+  
 setwd("./transcripts")
 
 for(i in 1:length(fileNames))
 {
   tempdata <- read_lines(fileNames[i],skip=0) 
   tempdata[tempdata == "  "] <- " " #removing double spaces
-  isa <- "إن شاء الله"
-  isa_dash <- "إن-شاء-الله"
-  tempdata.isadash <- str_replace_all(tempdata,isa,isa_dash) 
-
-  write.table(tempdata.isadash, file=dashedFiles[i], row.names = FALSE, col.names=FALSE, fileEncoding = "UTF-8", quote=FALSE) 
-}
+  tempdata <- tempdata %>% str_flatten()
   
+  detection[i,1]<-fileNames[i]
+  detection_initial[i,1]<-fileNames[i]
+  
+  # initial detection of unwanted phrases
+  detection_initial[i,2]<-  str_detect(tempdata,insha)
+  detection_initial[i,3]<-  str_detect(tempdata,insha2)
+  detection_initial[i,4]<-  str_detect(tempdata,isa)
+  detection_initial[i,5]<-  str_detect(tempdata,ahl)
+  detection_initial[i,6]<-  str_detect(tempdata,sbh)
+  detection_initial[i,7]<-  str_detect(tempdata,msa)
+  
+  #converting incorrect spellings of inshaaAllah
+  tempdata <- str_replace_all(tempdata,insha,insha_correct)
+  tempdata <- str_replace_all(tempdata,insha2,insha_correct) 
+ 
+   #replacing and dashing phrases
+  tempdata <- str_replace_all(tempdata,isa,isa_dash) 
+  tempdata <- str_replace_all(tempdata,ahl,ahl_dash)
+  tempdata <- str_replace_all(tempdata,sbh,sbh_dash)
+  tempdata <- str_replace_all(tempdata,msa,msa_dash)
+  
+  #adding edited trasncript to data frame
+  detection[i,2]<-  tempdata
+  
+  #detecting any lingering incorrect phrases
+  detection[i,3]<-  str_detect(tempdata,insha)
+  detection[i,4]<-  str_detect(tempdata,insha2)
+  detection[i,5]<-  str_detect(tempdata,isa)
+  detection[i,6]<-  str_detect(tempdata,ahl)
+  detection[i,7]<-  str_detect(tempdata,sbh)
+  detection[i,8]<-  str_detect(tempdata,msa)
+ 
+  
+  write.table(tempdata, file=dashedFiles[i], row.names = FALSE, col.names=FALSE, fileEncoding = "UTF-8", quote=FALSE) 
+}
+ 
+ 
 
 ```
 
