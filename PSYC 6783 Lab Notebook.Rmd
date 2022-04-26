@@ -60,7 +60,41 @@ rm(list=ls())
 
 **_______________________________________________________**
 
-# Date Friday 4/22/22
+# Date: Monday 4/25/22
+
+* Decided against Allahu A'lam -- not enough occurrences to matter
+* Completed code for converted all phrases in all files and also detecting the phrases after conversion for confirmation
+* Updated analysis process:
+data set: 19 interviews with questions removed
+  + run R code to replace 4 common phrases with the dashed phrases: inshaaAllah, alhamdulillah, subhanAllah, mashaaAllah. Needed to rerun to include misspellings of mashaaAllah
+    - after running code with flattened data, it turns out the new lines were not converted into spaces so words were mushed together, so ran again with additional str_flatten parameter collapse = " "
+  + run detection
+  + MEH:
+    - from MEH frequency output of original files, conversion list was compiled based on different forms of selected key words
+    - add limitation of potential words having different meaning in context (أصلي)
+    - I opted not to add any more stop words to the list on MEH, so as no to accidentally exclude something
+    - after a run, also added conversion words for وإن، فإن، فالحمد، و الحمد
+    - there were still a couple versions of alhamdulillah that were mispelled for mashaaAllah and alhamdulilah, added code to convert
+    - run MEH with edited transcript files
+    - after identifying phrases/words of interest from initial output, MEH run again with only dictionary list of phrases/words of interest -- all content words with total freq>20
+    - reviewed and labeled top frequent words as function/content up until 20 occurrences
+  + create data frame with each row being an interview with the following columns: 
+    - interview ID, parent gender, child gender(s) 
+    - qualitative codes: religionXmorality separation, approaches to moral socialization, how religion is employed with moral socialization, religious socialization 
+    - MEH word frequency for: words referring to religion, words referring to God, dashed religious phrases (as mentioned above)
+  + plot qualitative codes (binary variables) with MEH word frequencies
+  + potential statistical tests to run: t-test comparing mean word frequencies based on religionXmorality separation, regression with MEH word frequencies as outcome and religionXmorality separation and gender as predictors (all while acknowledging small sample size)
+
+
+
+**_______________________________________________________**
+
+# Date: Saturday 4/23/22
+
+* Add phrase Allahu a'lam?
+**_______________________________________________________**
+
+# Date: Friday 4/22/22
 
 * Wrote and tested code to convert different variations of inshaaAllah, then convert them into dashed phrase. Other phrases don't have common variations. Now adding all to loop.
 * Final Analysis:

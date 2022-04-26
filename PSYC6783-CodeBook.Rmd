@@ -39,13 +39,45 @@ required_packages = c("usethis",
                       "grid",
                       "gridExtra",
                       "textreadr",
-                      "gitignore"
+                      "gitignore",
+                      "lme4",
+                      "car",
+                      "base"
                       )
 
 # install them (if necessary) and load them
 load_or_install_packages(required_packages)
 devtools::install_github("hadley/emo")
 ```
+
+```{r create data frame and plot}
+
+MEHforR <- MEHforR [-c(30)]
+MEHforR ["phrases"] <- MEHforR$isa + MEHforR$msa + MEHforR$ahl + MEHforR$sbh + MEHforR$wallah
+MEHforR ["relig_lang"] <- MEHforR$salah + MEHforR$deen + MEHforR$rab + MEHforR$Allah + MEHforR$quran + MEHforR$duaa + MEHforR$haram
+MEHforR ["all.relig"] <- MEHforR$phrases + MEHforR$relig_lang
+
+MEHexc12 <- MEHforR[-c(19,20),]
+
+ggplot(MEHforR, aes(x = separation, y = )) +
+  geom_boxplot()
+  
+
+
+ggplot(MEHforR, aes(x = parent.gender, y = WC)) +
+  geom_bar(stat = "identity") +
+  xlab("separation") + 
+  ylab("freq of religion related words") +
+  ggtitle("Frequency of mentioning religion") + 
+  scale_fill_manual(values=c("#CA3145","#13CC66")) + 
+  theme(text = element_text(family = "Times New Roman", face = "bold", size =14, color = "#5B5E63")) + 
+  theme (plot.background = element_rect(
+    fill = "grey90",
+    size = 4), axis.text.x = element_text(size = 6), plot.title=element_text(hjust=0.5))
+
+t.test(MEHexc12$phrases ~ MEHexc12$parent.gender, var.equal = FALSE) 
+```
+
 
 Now, we convert that single phrase "inshaaAllah" in a group of documents in a folder using a loop. 
 **Note: have to type in Arabic text with parentheses here directly, copying from other text file doesn't seem to format parentheses correctly!**
@@ -76,7 +108,7 @@ write.table(doctext2dash, file="UB07_isaPhrased.txt", row.names = FALSE, col.nam
 
 ```
 
-
+The following function is the finalized converter - converts all unwanted phrases in all files.
 
 ```{r convert phrases in multiple files}
 fileNames <- list.files(path ="./transcripts",pattern="*noQ.txt") #getting file names for transcript files with questions removed
@@ -92,9 +124,14 @@ detection <- data.frame(file=character(),data=character(),checkisa1=logical(),ch
   insha2 <- "انشاء"
   insha_correct <- "إن شاء"
   
+  mashaa <- "مشاء"
+  mashaa2 <- "ماشاء"
+  mashaa_correct <- "ما شاء"
   isa <- "إن شاء الله"
   isa_dash <- "إن-شاء-الله"
   
+  ahl_mistype <- "الحمد الله"
+  ahl_mistype2 <- "الحمد ل الله"
   ahl <- "الحمد لله"
   ahl_dash <- "الحمد-لله"
  
@@ -103,14 +140,21 @@ detection <- data.frame(file=character(),data=character(),checkisa1=logical(),ch
   
   msa <- "ما شاء الله"
   msa_dash <- "ما-شاء-الله"
-  
-setwd("./transcripts")
+
+# creating new folder with time stamp to save new dashed files
+newfolder <- Sys.time()
+newfolder <- str_replace_all(newfolder,":","-")
+newfolder <- paste("./transcripts/",newfolder,sep="")
+dir.create(newfolder)
+newfolder <- paste(newfolder,"/", sep="")
+
 
 for(i in 1:length(fileNames))
 {
-  tempdata <- read_lines(fileNames[i],skip=0) 
+  tempread <- paste("./transcripts/",fileNames[i],sep="")
+  tempdata <- read_lines(tempread,skip=0) 
   tempdata[tempdata == "  "] <- " " #removing double spaces
-  tempdata <- tempdata %>% str_flatten()
+  tempdata <- tempdata %>% str_flatten(collapse=" ")
   
   detection[i,1]<-fileNames[i]
   detection_initial[i,1]<-fileNames[i]
@@ -123,11 +167,15 @@ for(i in 1:length(fileNames))
   detection_initial[i,6]<-  str_detect(tempdata,sbh)
   detection_initial[i,7]<-  str_detect(tempdata,msa)
   
-  #converting incorrect spellings of inshaaAllah
+  #converting incorrect spellings
   tempdata <- str_replace_all(tempdata,insha,insha_correct)
   tempdata <- str_replace_all(tempdata,insha2,insha_correct) 
- 
-   #replacing and dashing phrases
+  tempdata <- str_replace_all(tempdata,mashaa,mashaa_correct) 
+  tempdata <- str_replace_all(tempdata,mashaa2,mashaa_correct) 
+  tempdata <- str_replace_all(tempdata,ahl_mistype,ahl)
+  tempdata <- str_replace_all(tempdata,ahl_mistype2,ahl)xg
+  
+  #replacing and dashing phrases
   tempdata <- str_replace_all(tempdata,isa,isa_dash) 
   tempdata <- str_replace_all(tempdata,ahl,ahl_dash)
   tempdata <- str_replace_all(tempdata,sbh,sbh_dash)
@@ -145,10 +193,26 @@ for(i in 1:length(fileNames))
   detection[i,8]<-  str_detect(tempdata,msa)
  
   
-  write.table(tempdata, file=dashedFiles[i], row.names = FALSE, col.names=FALSE, fileEncoding = "UTF-8", quote=FALSE) 
+  tempfile<- paste(newfolder,dashedFiles[i], sep="")
+  tempfile <- str_replace_all(tempfile,":","/")
+  write.table(tempdata, file=tempfile, row.names = FALSE, col.names=FALSE, fileEncoding = "UTF-8", quote=FALSE) 
 }
  
- 
+detectiononly <- detection[,c(1,3,4,5,6,7,8)] 
+
+#creating one string with ALL transcripts and writing file
+newFiles <- list.files(path =newfolder,pattern="*noQ.txt")
+compiled <- "Compiled Transcripts Flattened ---- "
+for(i in 1:length(newFiles))
+{
+   tempread <- paste(newfolder,newFiles[i],sep="")
+   tempdata <- read_lines(tempread,skip=0)
+   compiled <- paste(compiled,newFiles[i],sep =" NEXT ")
+   compiled <- paste (compiled, tempdata, " --- ")
+  
+}
+compiledFile <- paste(newfolder, "compiled_transcripts.txt",sep="") 
+write.table(compiled, file=compiledFile, row.names = FALSE, col.names=FALSE, fileEncoding = "UTF-8", quote=FALSE) 
 
 ```
 
